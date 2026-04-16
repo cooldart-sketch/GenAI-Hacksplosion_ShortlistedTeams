@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Top 60 Teams — Hackathon Shortlist</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a18;
+    --ink-mid: #4a4a44;
+    --ink-light: #8a8a80;
+    --ink-faint: #c8c8be;
+    --paper: #fafaf7;
+    --paper-2: #f2f2ed;
+    --paper-3: #e8e8e0;
+    --accent: #2d4a3e;
+    --accent-light: #e8efe9;
+    --rule: rgba(26,26,24,0.10);
+  }
+
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── PAGE LAYOUT ── */
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 60px 40px 80px;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .event-label {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 10px;
+  }
+  .page-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 38px;
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--ink);
+    letter-spacing: -.01em;
+  }
+  .page-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .masthead-meta {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .masthead-meta p {
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.8;
+  }
+
+  /* ── SUMMARY STRIP ── */
+  .summary {
+    display: flex;
+    gap: 0;
+    margin-bottom: 36px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--paper-2);
+  }
+  .summary-item {
+    flex: 1;
+    padding: 18px 24px;
+    border-right: 1px solid var(--rule);
+  }
+  .summary-item:last-child { border-right: none; }
+  .summary-num {
+    font-family: 'EB Garamond', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .summary-lbl {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+
+  /* ── CONTROLS ── */
+  .controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .search-wrap {
+    flex: 1;
+    min-width: 200px;
+    position: relative;
+  }
+  .search-wrap svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink-faint);
+    pointer-events: none;
+  }
+  input[type="text"] {
+    width: 100%;
+    height: 38px;
+    padding: 0 12px 0 36px;
+    border: 1px solid var(--paper-3);
+    border-radius: 4px;
+    background: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color .2s;
+  }
+  input[type="text"]:focus { border-color: var(--ink-mid); }
+  input[type="text"]::placeholder { color: var(--ink-faint); }
+
+  select {
+    height: 38px;
+    padding: 0 14px;
+    border: 1px solid var(--paper-3);
+    border-radius: 4px;
+    background: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--ink);
+    cursor: pointer;
+    outline: none;
+    max-width: 220px;
+    transition: border-color .2s;
+  }
+  select:focus { border-color: var(--ink-mid); }
+
+  .result-count {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-bottom: 12px;
+  }
+
+  /* ── TABLE ── */
+  .tbl-wrap {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  thead th {
+    background: var(--ink);
+    color: #fff;
+    padding: 11px 16px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-align: left;
+    white-space: nowrap;
+  }
+  thead th:first-child {
+    text-align: center;
+    width: 52px;
+  }
+  tbody tr {
+    border-bottom: 1px solid var(--rule);
+    transition: background .12s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--accent-light); }
+
+  td {
+    padding: 11px 16px;
+    vertical-align: middle;
+  }
+  td.num {
+    text-align: center;
+    font-size: 11px;
+    color: var(--ink-faint);
+    font-weight: 500;
+    width: 52px;
+  }
+  td.team-name {
+    font-weight: 500;
+    color: var(--ink);
+    font-size: 14px;
+    min-width: 160px;
+  }
+  td.college-cell {
+    min-width: 220px;
+  }
+  .clg-full {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.4;
+  }
+  .clg-short {
+    display: block;
+    font-size: 11px;
+    color: var(--ink-faint);
+    margin-top: 1px;
+    font-weight: 500;
+    letter-spacing: .04em;
+  }
+  td.uc-cell {
+    min-width: 180px;
+  }
+
+  /* Use-case chips — two-tone per category */
+  .chip {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 400;
+    padding: 3px 10px;
+    border-radius: 2px;
+    white-space: normal;
+    line-height: 1.5;
+    letter-spacing: .01em;
+  }
+
+  /* colour map — 16 neutral-to-warm tones */
+  .uc-0  { background:#eef2ec; color:#2d4a3e; }
+  .uc-1  { background:#f1ede8; color:#4a3020; }
+  .uc-2  { background:#eaedf5; color:#243060; }
+  .uc-3  { background:#f5eee8; color:#5a3010; }
+  .uc-4  { background:#edf2f0; color:#1e4038; }
+  .uc-5  { background:#f0eef5; color:#3a2858; }
+  .uc-6  { background:#f5f0e8; color:#4a3800; }
+  .uc-7  { background:#f0f5ed; color:#284022; }
+  .uc-8  { background:#f5edee; color:#5a2028; }
+  .uc-9  { background:#edf4f5; color:#1a3d48; }
+  .uc-10 { background:#f5eeee; color:#502020; }
+  .uc-11 { background:#eef0f5; color:#283048; }
+  .uc-12 { background:#f2f5ed; color:#304028; }
+  .uc-13 { background:#f5f2ec; color:#48380a; }
+  .uc-14 { background:#eeeff5; color:#2a2860; }
+  .uc-15 { background:#f5eef0; color:#502038; }
+
+  /* ── ALTERNATING ROWS ── */
+  tbody tr:nth-child(even) { background: var(--paper-2); }
+  tbody tr:nth-child(even):hover { background: var(--accent-light); }
+
+  /* ── EMPTY STATE ── */
+  .empty-row td {
+    text-align: center;
+    padding: 48px;
+    color: var(--ink-light);
+    font-size: 13px;
+    font-style: italic;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer p {
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: .02em;
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 32px 20px 60px; }
+    .page-title { font-size: 28px; }
+    .masthead-meta { display: none; }
+    .summary-item { padding: 14px 16px; }
+    .summary-num { font-size: 26px; }
+    .clg-full { font-size: 12px; }
+  }
+
+  @media print {
+    body { background: #fff; }
+    .controls { display: none; }
+    tbody tr:hover { background: transparent; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div>
+        <p class="event-label">Hackathon Shortlist · 2025</p>
+        <h1 class="page-title">Top <em>60</em> Teams</h1>
+      </div>
+      <div class="masthead-meta">
+        <p>Shortlisted from national submissions</p>
+        <p>Across engineering colleges in India</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY STRIP -->
+  <div class="summary">
+    <div class="summary-item">
+      <div class="summary-num" id="s-teams">60</div>
+      <div class="summary-lbl">Teams</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-num" id="s-colleges">—</div>
+      <div class="summary-lbl">Colleges</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-num" id="s-cities">—</div>
+      <div class="summary-lbl">Cities</div>
+    </div>
+    <div class="summary-item">
+      <div class="summary-num" id="s-cases">—</div>
+      <div class="summary-lbl">Use Cases</div>
+    </div>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <div class="search-wrap">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5 21 21"/></svg>
+      <input type="text" id="search" placeholder="Search team, college or use case…" oninput="applyFilter()">
+    </div>
+    <select id="uc" onchange="applyFilter()"><option value="">All use cases</option></select>
+  </div>
+  <p class="result-count" id="meta">Showing 60 of 60 teams</p>
+
+  <!-- TABLE -->
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Team</th>
+          <th>College</th>
+          <th>Use Case</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>Confidential · For internal presentation only</p>
+    <p id="footer-date"></p>
+  </div>
+
+</div>
+
+<script>
+const data = [
+  ["Team 32Bits",          "MU Jaipur",       "Manipal University, Rajasthan",                              "Forensic and Financial Crime"],
+  ["Gen_splosion",         "VIT Vellore",     "Vellore Institute of Technology",                            "Forensic and Financial Crime"],
+  ["Error200",             "VIT Pune",        "Vishwakarma Institute of Technology",                        "Forensic and Financial Crime"],
+  ["Codepaglus",           "VIT Pune",        "Vishwakarma Institute of Technology",                        "Forensic and Financial Crime"],
+  ["XploreX",              "MU Jaipur",       "Manipal University, Rajasthan",                              "Forensic and Financial Crime"],
+  ["Team Crescendo",       "CBIT Hyderabad",  "Chaitanya Bharathi Institute of Technology",                 "Health Education"],
+  ["As One",               "VIT Pune",        "Vishwakarma Institute of Technology",                        "Health Education"],
+  ["Manners Maketh Man",   "VIT Vellore",     "Vellore Institute of Technology",                            "Industry Research"],
+  ["CoreFive",             "UPES Dehradun",   "University of Petroleum and Energy Studies",                 "Industry Research"],
+  ["Black Lotus",          "TSEC Mumbai",     "Thadomal Shahani Engineering College",                       "Industry Research"],
+  ["Data Dynamos",         "NMIMS Mumbai",    "Mukesh Patel School of Technology Management & Engineering", "Account Planning Agent"],
+  ["Techno_crew",          "VIT Vellore",     "Vellore Institute of Technology",                            "Account Planning Agent"],
+  ["Invictus",             "TSEC Mumbai",     "Thadomal Shahani Engineering College",                       "Auto Replenishment System / Stockout Prevention"],
+  ["Dead People's Society","MIT Manipal",     "Manipal Institute of Technology",                            "Auto Replenishment System / Stockout Prevention"],
+  ["GenZenius",            "DJSCE Mumbai",    "Dwarkadas J. Sanghvi College of Engineering",                "Auto Replenishment System / Stockout Prevention"],
+  ["Caffeine Coders",      "CBIT Hyderabad",  "Chaitanya Bharathi Institute of Technology",                 "Agentic AI for Structured Indian Case Law Intelligence"],
+  ["Agentic Minds",        "SOA Bhubaneswar", "Siksha O Anusandhan",                                        "Agentic AI for Structured Indian Case Law Intelligence"],
+  ["Team Meow",            "OUTR Bhubaneswar","Odisha University of Technology and Research",               "Agentic AI for Structured Indian Case Law Intelligence"],
+  ["HackWithHer",          "CU Punjab",       "Chitkara University",                                        "Agentic AI for Structured Indian Case Law Intelligence"],
+  ["GenSync",              "KIIT Bhubaneswar","Kalinga Institute of Industrial Technology",                  "Agentic AI for Structured Indian Case Law Intelligence"],
+  ["NeuralNexus",          "SRMIST Chennai",  "SRM Institute of Science and Technology",                    "Agentic AI for Structured Indian Case Law Intelligence"],
+  ["Innovision",           "BITS Dhanbad",    "BIT Sindri",                                                 "Invoice Creation Automation"],
+  ["NeuroFox",             "RRU Gandhinagar", "Rashtriya Raksha University",                                "Invoice Creation Automation"],
+  ["Team Pentagon",        "MU Jaipur",       "Manipal University, Rajasthan",                              "Knowledge RAG for SOP/Playbooks"],
+  ["Fanatics Guild",       "NIT Delhi",       "National Institute of Technology Delhi",                     "Knowledge RAG for SOP/Playbooks"],
+  ["ImpactCoders",         "SOA Bhubaneswar", "Siksha O Anusandhan",                                        "Customer Issue Diagnosis Agent"],
+  ["InnovateX",            "JU Bangalore",    "Jain University",                                            "Ticketing – Auto Categorization & Assignment"],
+  ["StackSmashers",        "CU Punjab",       "Chitkara University",                                        "Ticketing – Auto Categorization & Assignment"],
+  ["NeuroForge",           "VIT Vellore",     "Vellore Institute of Technology",                            "Ticketing – Auto Categorization & Assignment"],
+  ["TorjanHorses",         "VIT Vellore",     "Vellore Institute of Technology",                            "Ticketing – Auto Categorization & Assignment"],
+  ["Aachsplosion",         "LNMIIT Jaipur",   "LNM Institute of Information Technology",                   "AI-Driven Resume–Job Matching"],
+  ["ByteCoders",           "CBIT Hyderabad",  "Chaitanya Bharathi Institute of Technology",                 "AI-Driven Resume–Job Matching"],
+  ["Code Catalyst",        "SRMIST Chennai",  "SRM Institute of Science and Technology",                    "AI-Driven Resume–Job Matching"],
+  ["Smooth_Operator",      "NU Ahmedabad",    "Nirma University",                                           "AI-Driven Resume–Job Matching"],
+  ["E.D.I.T.H",           "VCOE Hyderabad",  "Vardhaman College of Engineering",                           "AI-Driven Resume–Job Matching"],
+  ["Ignited Minds",        "PES University",  "PES University, Bengaluru",                                  "Air Cargo Intelligence"],
+  ["The<Green>Core",       "SCOEM Mangalore", "Sahyadri College of Engineering and Management",             "Audit Analytics from Source Data"],
+  ["Aurora",               "VIT Vellore",     "Vellore Institute of Technology",                            "Audit Analytics from Source Data"],
+  ["Kaizen",               "CCOEW Pune",      "Cummins College of Engineering for Women",                   "Audit Analytics from Source Data"],
+  ["Pixel Pirates",        "VIT Pune",        "Vishwakarma Institute of Technology",                        "Audit Analytics from Source Data"],
+  ["Prizm_Insight",        "TSEC Mumbai",     "Thadomal Shahani Engineering College",                       "Audit Analytics from Source Data"],
+  ["Hacksagon",            "CBIT Hyderabad",  "Chaitanya Bharathi Institute of Technology",                 "Audit Analytics from Source Data"],
+  ["EdgeCase",             "VIT Vellore",     "Vellore Institute of Technology",                            "Audit Analytics from Source Data"],
+  ["It Works On My Machine","TSEC Mumbai",    "Thadomal Shahani Engineering College",                       "Audit Analytics from Source Data"],
+  [".gitignore",           "PU Bangalore",    "Presidency University",                                      "Customer Churn Management for Banking"],
+  ["Code Bytes",           "JECRC Jaipur",    "JECRC University, Jaipur",                                   "Customer Service"],
+  ["SRON",                 "RRU Gandhinagar", "Rashtriya Raksha University",                                "Customer Service & Cross-sell"],
+  ["Hustlers",             "CIT Tumkur",      "Channabasaveshwara Institute of Technology",                 "Knowledge BoT"],
+  ["Pixel Pioneers",       "SWEC Hyderabad",  "Sridevi Women's Engineering College",                        "Knowledge BoT"],
+  ["IIT Madras",           "IIT Madras",      "Indian Institute of Technology, Madras",                     "Knowledge BoT"],
+  ["RuntimeTerrors",       "KIIT Bhubaneswar","Kalinga Institute of Industrial Technology",                  "Knowledge BoT"],
+  ["The Prompt Engineers", "Mody University", "Mody University, Lakshmangarh",                              "Personalized Learning due to Teacher Shortages"],
+  ["Hackonauts",           "VCOE Hyderabad",  "Vardhaman College of Engineering",                           "Personalized Patient Reminders"],
+  ["VibeCortex",           "CU Punjab",       "Chitkara University",                                        "Real Estate Market Volatility & Bubble Detection Engine"],
+  ["Apex Algorithms",      "BIT Mesra",       "Birla Institute of Technology, Mesra",                       "Real Estate Market Volatility & Bubble Detection Engine"],
+  ["Codemavens",           "SRMIST Chennai",  "SRM Institute of Science and Technology",                    "Retention Next-Best-Action Agent"],
+  ["HackAgents",           "VJTI Mumbai",     "Veermata Jijabai Technological Institute",                   "Retention Next-Best-Action Agent"],
+  ["Coopers",              "OUTR Bhubaneswar","Odisha University of Technology and Research",               "Runbook Generation with Validation Agent"],
+  ["Innovera",             "Mody University", "Mody University, Lakshmangarh",                              "Runbook Generation with Validation Agent"],
+  ["Five Stars",           "DJSCE Mumbai",    "Dwarkadas J. Sanghvi College of Engineering",                "Runbook Generation with Validation Agent"]
+];
+
+// Build use-case index
+const ucList = [...new Set(data.map(d => d[3]))].sort();
+const ucIndex = {};
+ucList.forEach((u, i) => ucIndex[u] = i % 16);
+
+// Populate select
+const sel = document.getElementById('uc');
+ucList.forEach(u => {
+  const o = document.createElement('option');
+  o.value = u; o.textContent = u; sel.appendChild(o);
+});
+
+// Stats
+const colleges = new Set(data.map(d => d[1]));
+const cities   = new Set(data.map(d => {
+  const m = d[1].match(/\b(Mumbai|Delhi|Hyderabad|Chennai|Bangalore|Bengaluru|Pune|Jaipur|Bhubaneswar|Vellore|Gandhinagar|Manipal|Dhanbad|Dehradun|Tumkur|Mangalore|Ahmedabad|Mesra|Madras)\b/i);
+  return m ? m[1] : d[1];
+}));
+document.getElementById('s-colleges').textContent = colleges.size;
+document.getElementById('s-cities').textContent   = cities.size;
+document.getElementById('s-cases').textContent    = ucList.length;
+
+// Footer date
+const now = new Date();
+document.getElementById('footer-date').textContent =
+  now.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+
+let filtered = [...data];
+
+function render() {
+  const tb = document.getElementById('tbody');
+  tb.innerHTML = '';
+  if (!filtered.length) {
+    const tr = document.createElement('tr');
+    tr.className = 'empty-row';
+    tr.innerHTML = '<td colspan="4">No teams match your search.</td>';
+    tb.appendChild(tr);
+    document.getElementById('s-teams').textContent = '0';
+    document.getElementById('meta').textContent = 'No results found';
+    return;
+  }
+  filtered.forEach((r, i) => {
+    const ci = ucIndex[r[3]];
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="num">${i + 1}</td>
+      <td class="team-name">${r[0]}</td>
+      <td class="college-cell">
+        <span class="clg-full">${r[2]}</span>
+        <span class="clg-short">${r[1]}</span>
+      </td>
+      <td class="uc-cell"><span class="chip uc-${ci}">${r[3]}</span></td>
+    `;
+    tb.appendChild(tr);
+  });
+  document.getElementById('s-teams').textContent = filtered.length;
+  document.getElementById('meta').textContent =
+    `Showing ${filtered.length} of ${data.length} teams`;
+}
+
+function applyFilter() {
+  const q  = document.getElementById('search').value.toLowerCase();
+  const uc = document.getElementById('uc').value;
+  filtered = data.filter(r => {
+    const mq = !q || r[0].toLowerCase().includes(q) || r[1].toLowerCase().includes(q) ||
+                     r[2].toLowerCase().includes(q) || r[3].toLowerCase().includes(q);
+    const mu = !uc || r[3] === uc;
+    return mq && mu;
+  });
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
